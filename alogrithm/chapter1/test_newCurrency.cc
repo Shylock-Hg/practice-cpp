@@ -3,7 +3,8 @@
 int main(int argc, char * argv[]){
         newCurrency a {};
         newCurrency b {};
-        b.setValue(2.3);
+        //b.setValue(2.3);
+        std::cin >> b >> a;
         newCurrency c {};
         c = a + b;
         std::cout << "a + b = c is " << a << " + " << b << " = " << c << std::endl;

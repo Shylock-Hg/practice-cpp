@@ -40,6 +40,24 @@ newCurrency & newCurrency::operator+=(const newCurrency&x){
         return *this;
 }
 
+void newCurrency::input(std::istream & in){
+        char sign;
+        char dollar;
+        double value;
+        
+        if(sign == '-'){
+                std::cout << "Reverse" << std::endl;
+                value = -value;
+        }
+
+        setValue(value);
+}
+
+std::istream & operator>>(std::istream& in, newCurrency & x){
+        x.input(in);
+        return in;
+}
+
 void newCurrency::output(std::ostream & out) const{
         int64_t theCents = cents;
         if(theCents < 0){

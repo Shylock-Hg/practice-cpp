@@ -31,9 +31,11 @@ class newCurrency {
                 newCurrency operator+(const newCurrency&) const;
                 newCurrency & operator+=(const newCurrency&);
 
+                void input(std::istream & in);
                 void output(std::ostream & out) const;
 };
 
+std::istream & operator>>(std::istream& in, newCurrency & x);
 std::ostream & operator<<(std::ostream& out, const newCurrency & x);
 
 #endif
