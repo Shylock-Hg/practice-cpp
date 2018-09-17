@@ -29,6 +29,7 @@ class newCurrency {
 */
 
                 newCurrency operator+(const newCurrency&) const;
+                newCurrency operator-(const newCurrency&) const;
                 newCurrency & operator+=(const newCurrency&);
 
                 void input(std::istream & in);

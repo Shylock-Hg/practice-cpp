@@ -35,6 +35,11 @@ newCurrency newCurrency::operator+(const newCurrency&x) const{
         ret.cents = cents + x.cents;
         return ret;
 }
+newCurrency newCurrency::operator-(const newCurrency&x) const{
+        newCurrency z;
+        z.cents = cents - x.cents;
+        return z;
+}
 newCurrency & newCurrency::operator+=(const newCurrency&x){
         this->cents += x.cents;
         return *this;
