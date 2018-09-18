@@ -44,6 +44,11 @@ newCurrency & newCurrency::operator+=(const newCurrency&x){
         this->cents += x.cents;
         return *this;
 }
+newCurrency newCurrency::operator%(const unsigned int x) const{
+        newCurrency z;
+        z.cents = cents*x/100;
+        return z;
+}
 
 void newCurrency::input(std::istream & in){
         char sign;
