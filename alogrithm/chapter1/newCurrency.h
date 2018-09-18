@@ -33,6 +33,7 @@ class newCurrency {
                 newCurrency & operator+=(const newCurrency&);
                 newCurrency operator%(const unsigned int x) const;
                 newCurrency operator*(const double x) const;
+                newCurrency operator/(const double x) const;
 
                 void input(std::istream & in);
                 void output(std::ostream & out) const;

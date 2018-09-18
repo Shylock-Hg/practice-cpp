@@ -54,6 +54,11 @@ newCurrency newCurrency::operator*(const double x) const{
         z.cents = static_cast<int64_t>(cents*x);
         return z;
 }
+newCurrency newCurrency::operator/(const double x) const{
+        newCurrency z;
+        z.cents = static_cast<int64_t>(cents/x);
+        return z;
+}
 
 void newCurrency::input(std::istream & in){
         char sign;

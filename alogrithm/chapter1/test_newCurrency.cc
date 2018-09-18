@@ -19,6 +19,8 @@ int main(int argc, char * argv[]){
         std::cout << "a%30 a is " << a%30 << std::endl;
 
         std::cout << "a*-3.3 is " << a*-3.3 << std::endl;
+
+        std::cout << "a/-1.2 is " << a/-1.2 << std::endl;
         return 0;
 }
 
