@@ -9,18 +9,16 @@ int main(int argc, char * argv[]){
         newCurrency c {};
 
         c = a + b;
-        std::cout << "a + b = c is " <<
-                a << " + " << b << " = " << c << std::endl;
+        std::cout << a << " + " << b << " = " << c << std::endl;
 
         c = a - b;
-        std::cout << "a - b = c is " <<
-                a << " - " << b << " = " << c << std::endl;
+        std::cout << a << " - " << b << " = " << c << std::endl;
 
-        std::cout << "a%30 a is " << a%30 << std::endl;
+        std::cout << a << "%30 = " << a%30 << std::endl;
 
-        std::cout << "a*-3.3 is " << a*-3.3 << std::endl;
+        std::cout << a << "*-3.3 = " << a*-3.3 << std::endl;
 
-        std::cout << "a/-1.2 is " << a/-1.2 << std::endl;
+        std::cout << a << "/-1.2 = " << a/-1.2 << std::endl;
         return 0;
 }
 
