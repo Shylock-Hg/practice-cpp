@@ -7,9 +7,9 @@ int main(int argc, char * argv[]){
 		std::cout << i << std::endl;
 	}
 
-	char * string = "hello";
+	char string[] = "hello";
 	for(auto c : string){
-		
+		std::cout << c << std::endl;
 	}
 
 	return 0;
