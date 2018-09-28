@@ -1,10 +1,10 @@
-target = test
+target = a.out
 
 all: $(target)
 
 objs = Vector.o test_Vector.o
 
-test: $(objs)
+$(target): $(objs)
 	$(CXX) -o $(target) $(objs)
 
 Vector.o : Vector.cc Vector.h
@@ -14,4 +14,8 @@ test_Vector.o : test_Vector.cc Vector.h
 	$(CXX) -c $< -o $@
 
 
+clean :
+	-rm -rf *.o $(target)
 
+test :
+	./$(target)
