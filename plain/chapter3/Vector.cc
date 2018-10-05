@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include <algorithm>
 #include <cstring>
 
@@ -15,9 +17,11 @@ size_t Vector::count(){
 	return c;
 }
 double* Vector::begin(){
+	std::cout << "Begin" << std::endl;
 	return (elem+0);
 }
 double* Vector::end(){
+	std::cout << "End" << std::endl;
 	return (elem+c);
 }
 
