@@ -33,6 +33,10 @@ int main (int argc, char * argv[]){
         std::cout << "Size is " << a.size() << std::endl;
 
         a.output(std::cout);
+        std::cout << std::endl;
+
+        auto b = std::move(a);
+        b.output(std::cout);
         return 0;
 }
 
