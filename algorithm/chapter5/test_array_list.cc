@@ -42,6 +42,12 @@ int main(int argc, char * argv[]){
 
         //std::cout << l->at(1) << std::endl;
         //std::cout << l->size() << std::endl;
+        //
+        ap->push_back(3);
+        ap->push_back(-11);
+        ap->output(std::cout);
+        std::cout << std::endl;
+        std::cout << "The size is " << ap->size() << std::endl;
 
         return 0;
 }

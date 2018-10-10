@@ -32,11 +32,16 @@ int main (int argc, char * argv[]){
         a.erase(1);
         std::cout << "Size is " << a.size() << std::endl;
 
-        a.output(std::cout);
-        std::cout << std::endl;
+        std::cout << a << std::endl;
 
         auto b = std::move(a);
-        b.output(std::cout);
+        b.insert(2, 2);
+        b.insert(3, 3);
+        std::cout << b << std::endl;
+
+        b.push_back(11);
+        std::cout << b << std::endl;
+        std::cout << b.size() << std::endl;
         return 0;
 }
 

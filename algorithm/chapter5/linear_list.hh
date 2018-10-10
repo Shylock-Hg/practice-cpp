@@ -14,6 +14,7 @@ public:
         virtual int find(const __item__& value) const =0;
         virtual void erase(size_t i) = 0;
         virtual void insert(size_t i, const __item__& value) = 0;
+        virtual void push_back(const __item__& value) = 0;
         virtual void output(std::ostream& out) const = 0;
 };
 

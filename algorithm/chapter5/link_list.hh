@@ -220,6 +220,14 @@ public:
                         }
                 }
         }
+        void push_back(const __item__& value) {
+                auto it = first;
+                while (nullptr != it->get_next()) {
+                        it = it->get_next();
+                }
+                it->set_next(new link_list_node<__item__>(value));
+                count++;
+        }
         void output(std::ostream& out) const {
                 for (const auto & it : *this) {
                         std::ostream_iterator<__item__> (out, " ") = it.get_value();
@@ -227,4 +235,9 @@ public:
         }
 };
 
+template <class __item__>
+std::ostream& operator<<(std::ostream& out, const link_list<__item__>& l) {
+        l.output(out);
+        return out;
+}
 

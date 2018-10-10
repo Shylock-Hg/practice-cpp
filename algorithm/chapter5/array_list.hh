@@ -167,6 +167,14 @@ public:
                 array = p;
                 count++;
          }
+        void push_back(const __item__& value) {
+                auto * p = new __item__[count+1];
+                std::copy(array, array+count, p);
+                *(p+count) = value;
+                delete []  array;
+                array = p;
+                count++;
+        }
          void output(std::ostream& out) const {
                  std::copy(
                          array,
