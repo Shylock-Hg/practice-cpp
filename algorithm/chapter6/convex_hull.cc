@@ -6,6 +6,7 @@
 #include <complex>
 #include <array>
 #include <iterator>
+#include <algorithm>
 
 //< 67
 template  <std::size_t N>
@@ -19,6 +20,7 @@ public:
                 _points {std::array<std::complex<float>, N> ()},
                 _ch_points {std::vector<std::complex<float>> ()} {
                 std::copy(list.begin(), list.begin()+N, _points.begin());
+                gen_ch_points();
         };
 
         //< get a point inside the convex hull
@@ -56,7 +58,56 @@ public:
                 return out;
         }
 private:
-        void gen_ch_points() {}
+        enum ori {IN_LINE, CLOCK, COUNTER_CLOCK};
+        ori orientation(std::complex<float> zero,
+                std::complex<float> a,
+                std::complex<float> b) {
+                float val = (a.imag() - zero.imag()) *
+                        (b.real() - a.real()) -
+                        (a.real() - zero.real()) *
+                        (b.imag() - a.imag()); 
+
+                if (val == 0) return IN_LINE;  // colinear 
+                return (val > 0)? CLOCK : COUNTER_CLOCK; // clock or counterclock wise 
+        };
+
+        /*!
+                \brief implement Graham Scan algorithm
+        */
+        void gen_ch_points() {
+                //< find the base point -- first y min then x min
+                auto base = std::min_element(_points.begin(),
+                        _points.end(),
+                        [](const std::complex<float> a,
+                                const std::complex<float> b) -> bool {
+                                if (a.real() < b.real()) {
+                                        return true;
+                                }
+                                if (a.real() == b.real()
+                                        && a.imag() < b.imag()) {
+                                        return true;
+                                }
+                                return false;
+                        });
+                //< place base to first
+                std::swap(base, _points.begin());
+                //< sort the points by counter clock
+                std::sort(_points.begin()+1, _points.end(),
+                        [this](
+                                std::complex<float> a,
+                                std::complex<float> b) -> bool {
+                                ori orien = orientation(*(this->_points.begin()),
+                                        a, b);
+                                if(IN_LINE == orien) {
+                                        if(std::abs(a-*(this->_points.begin())) < std::abs(b-*(this->_points.begin())))
+                                                return true;
+                                }
+                                if(COUNTER_CLOCK == orien)
+                                        return true;
+                                return false;
+                        });
+                //< 
+        }
 };
 
 template<std::size_t N>
@@ -68,6 +119,8 @@ int main(int argc, char * argv[]) {
         points<5> p {{1, 1},  {2, 2}, {3, 3}, {4, 4}, {4, 5}};
         std::clog << p << std::endl;
         std::clog << "Is in one line? " << p.is_one_line() << std::endl;
+
+        std::clog << p << std::endl;
         return 0;
 }
 
