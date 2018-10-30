@@ -13,17 +13,13 @@
 #include <stdexcept>
 #include <memory>
 
-//#include "matrix.hh"
-
 template <class __item__, std::size_t ROW, std::size_t COL>
 class matrix_array {
 private:
-//        std::size_t row_;
-//        std::size_t col_;
 public:
         __item__* ele;
         matrix_array() : ele {new __item__[ROW*COL]} {};
-        explicit matrix_array(std::initializer_list<__item__> list) :
+        matrix_array(std::initializer_list<__item__> list) :
                 ele {new __item__[ROW*COL]} {
                         std::copy(list.begin(), list.end(), ele);
         };
@@ -41,8 +37,12 @@ public:
         constexpr std::size_t col() const {return COL;};
 
         __item__& operator()(std::size_t row, std::size_t col) const {
+                if (row >= ROW || col >= COL) {
+                        throw std::out_of_range("Matrix subscribe out of range!\n");
+                }
                 return ele[row*COL + col];
         };
+
         matrix_array<__item__, ROW, COL> operator+ () const {
                 matrix_array<__item__, ROW, COL> c;
                 for (std::size_t i=0; i<ROW*COL; i++) {
@@ -50,19 +50,7 @@ public:
                 }
                 return c;
         };  //!< unary +
-        matrix_array<__item__, ROW, COL> operator+ (
-                        const matrix_array<__item__, ROW, COL>& b) const {
-                /*
-                if (row_ != b.row_ || col_ != b.col_) {
-                        throw std::out_of_range("Matrix + out of range!\n");
-                }
-                */
-                matrix_array<__item__, ROW, COL> c;
-                for (std::size_t i=0; i<ROW*COL; i++) {
-                        c.ele[i] = ele[i] + b.ele[i];
-                }
-                return c;
-        };
+
         matrix_array<__item__, ROW, COL> operator- () const {
                 matrix_array<__item__, ROW, COL> c;
                 for (std::size_t i=0; i<ROW*COL; i++) {
@@ -70,36 +58,7 @@ public:
                 }
                 return c;
         };  //!< unary -
-        matrix_array<__item__, ROW, COL> operator- (
-                        const matrix_array<__item__, ROW, COL>& b) const {
-                /*
-                if (row_ != b.row_ || col_ != b.col_) {
-                        throw std::out_of_range("Matrix + out of range!\n");
-                }
-                */
-                matrix_array<__item__, ROW, COL> c;
-                for (std::size_t i=0; i<ROW*COL; i++) {
-                        c.ele[i] = ele[i] - b.ele[i];
-                }
-                return c;
-        };
-        template <std::size_t N>
-        matrix_array<__item__, ROW, N> operator* (
-                        const matrix_array<__item__, COL, N>& b) const {
-                __item__ temp = 0;
-                matrix_array<__item__, ROW, N> c;
-                for (std::size_t i=0; i<ROW; i++) {
-                        for (std::size_t j=0; j<N; j++) {
-                                for (std::size_t k=0; k<COL; k++) {
-                                        temp += (ele[i*COL+k] * b.ele[k*N+j]);
-                                }
-                                c.ele[i*N+j] = temp;
-                                temp = 0;
-                        }
-                }
-                return c;
-        };
-        //matrix_array<__item__>& operator+= (const __item__&);
+
         std::ostream& output (std::ostream& out) const {
                 for(std::size_t i=0; i<ROW; i++) {
                         std::copy(ele+(i*COL),
@@ -112,9 +71,49 @@ public:
 };
 
 template <class __item__, std::size_t ROW, std::size_t COL>
-std::ostream& operator<< (std::ostream& out, matrix_array<__item__, ROW, COL>& b) {
+std::ostream& operator<< (std::ostream& out, matrix_array<__item__, ROW, COL> b) {
         return b.output(out);
 }
+
+template <class __item__, std::size_t ROW, std::size_t COL>
+matrix_array<__item__, ROW, COL> operator+ (
+                const matrix_array<__item__, ROW, COL>& a,
+                const matrix_array<__item__, ROW, COL>& b) {
+        matrix_array<__item__, ROW, COL> c;
+        for (std::size_t i=0; i<ROW*COL; i++) {
+                c.ele[i] = a.ele[i] + b.ele[i];
+        }
+        return c;
+};
+
+template <class __item__, std::size_t ROW, std::size_t COL>
+matrix_array<__item__, ROW, COL> operator- (
+                const matrix_array<__item__, ROW, COL>& a,
+                const matrix_array<__item__, ROW, COL>& b) {
+        matrix_array<__item__, ROW, COL> c;
+        for (std::size_t i=0; i<ROW*COL; i++) {
+                c.ele[i] = a.ele[i] - b.ele[i];
+        }
+        return c;
+};
+
+template <class __item__, std::size_t ROW, std::size_t N, std::size_t COL>
+matrix_array<__item__, ROW, COL> operator* (
+                const matrix_array<__item__, ROW, N>& a,
+                const matrix_array<__item__, N, COL>& b) {
+        __item__ temp = 0;
+        matrix_array<__item__, ROW, COL> c;
+        for (std::size_t i=0; i<ROW; i++) {
+                for (std::size_t j=0; j<COL; j++) {
+                        for (std::size_t k=0; k<N; k++) {
+                                temp += (a.ele[i*N+k] * b.ele[k*COL+j]);
+                        }
+                        c.ele[i*COL+j] = temp;
+                        temp = 0;
+                }
+        }
+        return c;
+};
 
 #endif  //!< _TEMPLATE_H_
 
