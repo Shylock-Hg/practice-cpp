@@ -29,5 +29,9 @@ int main(int argc, char * argv[]) {
         std::cout << f(2, 1) << std::endl;
 
         std::cout << f.row() << "   " << f.col() << std::endl;
+
+        matrix_array<float, 3, 3> g {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+        std::cout << g << std::endl;
+        std::cout << g.row() << "  " << g.col() << std::endl;
         return 0;
 }

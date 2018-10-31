@@ -21,7 +21,23 @@ public:
         matrix_array() : ele {new __item__[ROW*COL]} {};
         matrix_array(std::initializer_list<__item__> list) :
                 ele {new __item__[ROW*COL]} {
-                        std::copy(list.begin(), list.end(), ele);
+                if (ROW*COL < list.size()) {
+                        throw std::out_of_range("Initializer list out of range!\n");
+                }
+                std::copy(list.begin(), list.end(), ele);
+        };
+        matrix_array(std::initializer_list<std::initializer_list<__item__>> list) :
+                ele {new __item__[ROW*COL]} {
+                if (ROW < list.size()) {
+                        throw std::out_of_range("Initializer list row out of range!\n");
+                }
+                std::size_t i_row = 0;
+                for (const auto & row : list) {
+                        if (COL < row.size()) {
+                                throw std::out_of_range("Initializer list col out of range!\n");
+                        }
+                        std::copy(row.begin(), row.end(), ele+(i_row++)*COL);
+                }
         };
         matrix_array(matrix_array<__item__, ROW, COL>& b) :
                 ele {new __item__[ROW*COL]} {
