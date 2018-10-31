@@ -104,6 +104,16 @@ public:
                 return *this;
         }
 
+        matrix_array<__item__, COL, ROW> transpose() const {
+                matrix_array<__item__, COL, ROW> c;
+                for (std::size_t i=0; i<ROW; i++) {
+                        for (std::size_t j=0; j<COL; j++) {
+                                c.ele[j*ROW+i] = ele[i*COL+j];
+                        }
+                }
+                return c;
+        }
+
         std::ostream& output (std::ostream& out) const {
                 for(std::size_t i=0; i<ROW; i++) {
                         std::copy(ele+(i*COL),

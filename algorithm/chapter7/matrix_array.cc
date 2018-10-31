@@ -45,5 +45,7 @@ int main(int argc, char * argv[]) {
         std::cout << (g=g-1) << std::endl;
 
         std::cout << g*2 << std::endl;
+
+        std::cout << a.transpose() << std::endl;
         return 0;
 }
