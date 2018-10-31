@@ -67,6 +67,14 @@ public:
                 return c;
         };  //!< unary +
 
+        matrix_array<__item__, ROW, COL> operator+ (const __item__ val) {
+                matrix_array<__item__, ROW, COL> c;
+                for (std::size_t i=0; i<ROW*COL; i++) {
+                        c.ele[i] = ele[i] + val;
+                }
+                return c;
+        }
+
         matrix_array<__item__, ROW, COL> operator- () const {
                 matrix_array<__item__, ROW, COL> c;
                 for (std::size_t i=0; i<ROW*COL; i++) {
@@ -74,6 +82,27 @@ public:
                 }
                 return c;
         };  //!< unary -
+
+        matrix_array<__item__, ROW, COL> operator- (const __item__ val) {
+                matrix_array<__item__, ROW, COL> c;
+                for (std::size_t i=0; i<ROW*COL; i++) {
+                        c.ele[i] = ele[i] - val;
+                }
+                return c;
+        }
+
+        matrix_array<__item__, ROW, COL> operator* (const __item__ val) {
+                matrix_array<__item__, ROW, COL> c;
+                for (std::size_t i=0; i<ROW*COL; i++) {
+                        c.ele[i] = ele[i] * val;
+                }
+                return c;
+        }
+
+        matrix_array<__item__, ROW, COL>& operator= (const matrix_array<__item__, ROW, COL>& b) {
+                std::copy(b.ele, b.ele+ROW*COL, ele);
+                return *this;
+        }
 
         std::ostream& output (std::ostream& out) const {
                 for(std::size_t i=0; i<ROW; i++) {
