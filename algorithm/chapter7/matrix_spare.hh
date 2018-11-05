@@ -38,7 +38,7 @@ public:
         };
         std::list<value_type> ele;
         matrix_spare() = default;
-        matrix_spare(std::size_t n) : ele {std::list<value_type>(n)} {}
+        explicit matrix_spare(std::size_t n) : ele {std::list<value_type>(n)} {}
         matrix_spare(std::initializer_list<value_type> l) :
                 ele {std::list<value_type> (l.size())} {
                 if (ROW*COL < l.size()) {
