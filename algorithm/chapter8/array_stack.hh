@@ -56,8 +56,8 @@ public:
                 return ele[top-1];
         }
         value_type pop() {
-                if (0 > top) {
-                        return ele[top--];
+                if (0 < top) {
+                        return ele[--top];
                 } else {
                         throw std::out_of_range(
                                 "Err: Stack pop out of range!\n");

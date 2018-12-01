@@ -10,8 +10,21 @@
 
 int main(int argc, char * argv[]) {
         array_stack<int> a;
+        std::cout << a.empty() << std::endl;
         a.push(10);
-        
+        a.push(11);
+        std::cout << a.empty() << std::endl;
+        std::cout << a.size() << std::endl;
+
         std::cout << a.get_top() << std::endl;
+        std::cout << a.pop() << std::endl;
+        std::cout << a.size() << std::endl;
+
+        a.push(11);
+        std::cout << a.size() << std::endl;
+        a.push(12);
+        std::cout << a.size() << std::endl;
+        std::cout << a.get_top() << std::endl;
+
         return 0;
 }
