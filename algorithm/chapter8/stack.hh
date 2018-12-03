@@ -12,11 +12,16 @@
 template <class ITEM>
 class stack {
 public:
+        typedef ITEM value_type;
+        typedef ITEM* pointer_type;
+        typedef ITEM& reference_type;
+        typedef const ITEM& const_reference_type;
+
         virtual bool empty() const = 0;
         virtual std::size_t size() const = 0;
-        virtual ITEM& get_top() const = 0;
-        virtual ITEM pop() = 0;
-        virtual void push(const ITEM& item) = 0;
+        virtual reference_type get_top() const = 0;
+        virtual value_type pop() = 0;
+        virtual void push(const_reference_type item) = 0;
 };
 
 #endif  //!< _STACK_HH_
