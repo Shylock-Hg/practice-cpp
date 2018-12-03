@@ -35,7 +35,7 @@ private:
 public:
 
         // default -- at leat one node for simpfy operations
-        list_stack() : top {new node<value_type>}, count {0} {}
+        list_stack() : top {new node<value_type> {nullptr, nullptr}}, count {0} {}
         // move
         list_stack(list_stack<value_type>&& b) :
                 top {b.top}, count {b.count} {
