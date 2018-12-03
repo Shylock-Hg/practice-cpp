@@ -18,6 +18,8 @@ int main(int argc, char * argv[]) {
         std::cout << is_matched("(){}{}[][[[]]]") << std::endl;
         std::cout << is_matched("(({{))}}") << std::endl;
         std::cout << is_matched("Hellow World!") << std::endl;  // return true
+        std::cout << is_matched("(({{[[") << std::endl;
+        std::cout << is_matched("}}}))]]]") << std::endl;
         // std::cout << is_matched("") << std::endl; exception
         return 0;
 }
@@ -41,6 +43,9 @@ bool is_matched(std::string s) {
                 result = std::find(
                         suffix.begin(), suffix.end(), c);
                 if (result != suffix.end()) {
+                        if (0 == stk.size()) {
+                                return false;
+                        }
                         char poped = stk.pop();
                         //< check is matched
                         if (poped == '(' && *result != ')') {
@@ -52,5 +57,5 @@ bool is_matched(std::string s) {
                         }
                 }
         }
-        return true;
+        return 0 == stk.size();
 }
