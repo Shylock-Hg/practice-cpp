@@ -5,7 +5,7 @@
 int main()
 {
     try {
-        pqxx::connection C("dbname=db-shylock");
+        pqxx::connection C("user=postgres");
         std::clog << "Connected to " << C.dbname() << std::endl;
         pqxx::work W(C);
 
