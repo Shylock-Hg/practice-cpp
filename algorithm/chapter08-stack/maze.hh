@@ -14,6 +14,21 @@
 #include <utility>
 #include <vector>
 
+/*
+template <class F, class S>
+std::pair<F, S> operator+(std::pair<F, S> adder1, std::pair<F, S> adder2) {
+        return std::pair<F, S> {adder1.first + adder2.first, adder1.second + adder2.second};
+}
+*/
+/*  // must be member
+template <class F, class S>
+std::pair<F, S>& operator=(std::pair<F, S>& adder1, const std::pair<F, S>& adder2) {
+        adder1.first = adder2.first;
+        adder1.second = adder2.second;
+        return adder1;
+}
+*/
+
 
 /*! \brief the algorithm to get the path of maze
     \note true for pass, false for block
@@ -109,11 +124,17 @@ private:
                 return true;
         }
 public:
-        maze(const std::initializer_list<std::initializer_list<bool>> &list) : 
+        maze(std::initializer_list<std::initializer_list<bool>> list) : 
                 matrix_array<bool, ROW, COL>(list)
                 // path : {},
                 // current : {}
                 {
+        }
+
+        maze(maze<ROW, COL>& b) : matrix_array<bool, ROW, COL>(b), path {b.path}, current {b.current} {
+        }
+
+        maze(maze<ROW, COL>&& b) : matrix_array<bool, ROW, COL>(b), path {b.path}, current {b.current} {
         }
 
         /*! \brief find the path from start to end
@@ -126,7 +147,7 @@ public:
 //                list_stack<std::pair<std::size_t, std::size_t>> path,
                 std::pair<std::size_t, std::size_t> start,
                 std::pair<std::size_t, std::size_t> end
-        ) const {
+        ) {
                 // check arguments
                 if (!path.empty()) {
                         throw std::invalid_argument("Not empty input path stack!");
@@ -174,6 +195,11 @@ public:
                 }
                 return true;
         }
+
+        list_stack<std::pair<std::size_t, std::size_t>> & get_path() {
+                return path;
+        }
 };
+
 
 #endif  //!< _MAZE_HH_
